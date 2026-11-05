@@ -1,0 +1,20 @@
+# Επίπεδο σοβαρότητας κάθε issue, όπως το κατατάσσει το Semrush (error / warning / notice).
+# Το layer ΔΕΝ ορίζει δική του σοβαρότητα: την παίρνει από το εργαλείο (βλ. D-002).
+#
+# ⚠️ ΠΡΟΣ ΕΠΑΛΗΘΕΥΣΗ: οι τιμές συμπληρώθηκαν από γνώση και όχι από το δικό σου audit.
+#    Έλεγξε κάθε γραμμή στο Semrush → Site Audit → Issues (καρτέλες Errors / Warnings / Notices)
+#    και διόρθωσε όπου χρειάζεται. Τα ονόματα πρέπει να είναι ΑΚΡΙΒΩΣ όπως στο export.
+#
+# Περιλαμβάνονται μόνο τα issues που εμφανίστηκαν στο audit της 2026-10-04.
+# Όταν ένα νέο audit φέρει νέα issues, το ingest.py θα σε ειδοποιήσει να τα προσθέσεις εδώ.
+
+"4xx errors": error
+"Broken internal links": error
+"Issues with incorrect hreflang links": error
+"Sitemap.xml not found": warning
+"Missing meta description": warning
+"Low text to HTML ratio": warning
+"Low word count": warning
+"Uncached JavaScript and CSS files": warning
+"No HSTS support": notice
+"Llms.txt not found": notice

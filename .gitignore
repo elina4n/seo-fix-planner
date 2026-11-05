@@ -1,0 +1,19 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Παραγόμενα αρχεία (ξαναφτιάχνονται με το ingest.py)
+data/processed/*
+!data/processed/.gitkeep
+
+# Τα exports μένουν τοπικά. Αφαίρεσε τις δύο γραμμές παρακάτω
+# αν θες να ανέβουν στο GitHub για αναπαραγωγιμότητα (προτείνεται μόνο σε private repo).
+data/raw/*
+!data/raw/.gitkeep
+
+# Λειτουργικό σύστημα / editor
+.DS_Store
+Thumbs.db
+.vscode/
