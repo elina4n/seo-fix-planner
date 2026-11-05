@@ -1,26 +1,20 @@
-# Κατάλογος διορθώσεων WordPress — η κύρια συνεισφορά της διπλωματικής.
+# Οι διορθώσεις και τα προβλήματα που λύνει η καθεμία.
 #
-# Κάθε διόρθωση λέει:
-#   id            μοναδικός κωδικός (F01, F02, ...)
-#   name          τι κάνεις, σε μία φράση
-#   where         πού γίνεται: server | seo_plugin | caching_plugin | theme | content | other
-#   how           σύντομα βήματα
-#   resolves      ποια issues λύνει (ΑΚΡΙΒΩΣ τα ονόματα του severity_semrush.yaml)
-#   minutes       εκτιμώμενος χρόνος — ΠΡΟΣΩΡΙΝΟΣ, θα χρονομετρηθεί σε κλώνους (D-005)
-#   depends_on    διορθώσεις που πρέπει να γίνουν ΠΡΙΝ (μόνο σκληρές προϋποθέσεις)
-#   reaudit       true αν μετά χρειάζεται νέο crawl, γιατί μπορεί να εμφανιστούν νέα issues
-#   confidence    hypothesis (υπόθεση) | verified (επιβεβαιώθηκε στην πράξη)
-#   source        τεκμηρίωση (paper, Google docs, plugin docs, δική σου δοκιμή)
+# resolves    τα ονόματα πρέπει να είναι ίδια με του severity_semrush.yaml
+# minutes     εκτίμηση, θα μετρηθεί στην πράξη
+# depends_on  διορθώσεις που πρέπει να γίνουν πριν
+# reaudit     true αν μετά χρειάζεται νέο crawl
+# confidence  hypothesis όσο δεν έχει δοκιμαστεί, verified μετά
 #
-# v0: καλύπτει μόνο τα issues του audit edge.dmsm2026.neuroverse.gr, 2026-10-04.
+# Η πρώτη εκδοχή καλύπτει μόνο τα προβλήματα του audit της 4/10/2026.
 
 fixes:
   - id: F01_routing
-    name: Επαναφορά δρομολόγησης WordPress (.htaccess / permalinks / document root)
+    name: Να δουλεύουν ξανά οι εσωτερικές σελίδες (.htaccess / permalinks)
     where: server
     how: >
-      Έλεγχος στο cPanel σε ποιον φάκελο δείχνει το subdomain· ύπαρξη index.php και .htaccess
-      με τους κανόνες του WordPress· Ρυθμίσεις → Μόνιμοι σύνδεσμοι → Αποθήκευση.
+      Στο cPanel, έλεγχος σε ποιον φάκελο δείχνει το subdomain και αν υπάρχουν
+      εκεί το index.php και το .htaccess. Μετά, Ρυθμίσεις > Μόνιμοι σύνδεσμοι > Αποθήκευση.
     resolves:
       - "4xx errors"
       - "Broken internal links"
@@ -30,18 +24,16 @@ fixes:
     depends_on: []
     reaudit: true
     confidence: hypothesis
-    source: "TODO — WordPress docs (permalinks / .htaccess)· δική σου διάγνωση 2026-10-04"
+    source: "TODO"
     notes: >
-      Οι εσωτερικές σελίδες επιστρέφουν 404 του Apache, άρα το αίτημα δεν φτάνει στο WordPress.
-      Το audit είδε μόνο 22 URLs: μετά τη διόρθωση αναμένονται νέα, κρυμμένα issues.
-      Το hreflang πιθανότατα λύνεται επειδή το /en/home/ θα σερβίρεται· να επιβεβαιωθεί.
+      Οι εσωτερικές σελίδες βγάζουν 404 από τον Apache, δηλαδή δεν φτάνουν στο WordPress.
+      Το audit είδε μόνο 22 URLs, οπότε μετά τη διόρθωση μάλλον θα εμφανιστούν κι άλλα
+      προβλήματα. Το hreflang πιθανότατα φτιάχνεται επειδή θα ανοίγει το /en/home/.
 
   - id: F02_browser_caching
-    name: Ενεργοποίηση browser caching για JS/CSS
+    name: Browser caching για JS και CSS
     where: caching_plugin
-    how: >
-      Ενεργοποίηση browser cache στο caching plugin (π.χ. LiteSpeed Cache) ή κανόνες
-      Cache-Control / Expires στο .htaccess.
+    how: Από το caching plugin, ή με Cache-Control / Expires στο .htaccess.
     resolves:
       - "Uncached JavaScript and CSS files"
     minutes: 20
@@ -51,11 +43,9 @@ fixes:
     source: "TODO"
 
   - id: F03_hsts
-    name: Προσθήκη header HSTS
+    name: Header HSTS
     where: server
-    how: >
-      Header Strict-Transport-Security στο .htaccess ή μέσω security plugin.
-      Μόνο αφού όλο το site και τα subdomains σερβίρονται σωστά μέσω HTTPS.
+    how: Strict-Transport-Security στο .htaccess ή από security plugin.
     resolves:
       - "No HSTS support"
     minutes: 10
@@ -63,12 +53,12 @@ fixes:
     reaudit: false
     confidence: hypothesis
     source: "TODO"
-    notes: "Ρίσκο: λάθος ρύθμιση HSTS μπορεί να κλειδώσει subdomains χωρίς HTTPS."
+    notes: Μόνο αν όλο το site και τα subdomains δουλεύουν με HTTPS.
 
   - id: F04_home_meta_description
-    name: Meta description στην αρχική σελίδα
+    name: Meta description στην αρχική
     where: seo_plugin
-    how: "Συμπλήρωση στο πεδίο του SEO plugin (Yoast / Rank Math) για την αρχική."
+    how: Από το πεδίο του SEO plugin για την αρχική σελίδα.
     resolves:
       - "Missing meta description"
     minutes: 5
@@ -78,9 +68,9 @@ fixes:
     source: "TODO"
 
   - id: F05_home_content
-    name: Περισσότερο κείμενο στην αρχική σελίδα
+    name: Περισσότερο κείμενο στην αρχική
     where: content
-    how: "Προσθήκη ουσιαστικού κειμένου στην αρχική μέσω του block editor."
+    how: Προσθήκη κειμένου από τον editor.
     resolves:
       - "Low word count"
       - "Low text to HTML ratio"
@@ -89,12 +79,12 @@ fixes:
     reaudit: false
     confidence: hypothesis
     source: "TODO"
-    notes: "Θέμα περιεχομένου, όχι τεχνικό· να αποφασιστεί αν μένει στο scope."
+    notes: Είναι θέμα περιεχομένου. Να δω αν το κρατάω στο scope.
 
   - id: F06_llms_txt
-    name: Δημιουργία αρχείου llms.txt
+    name: Αρχείο llms.txt
     where: server
-    how: "Ανέβασμα αρχείου llms.txt στη ρίζα του site (ή μέσω plugin)."
+    how: Ανέβασμα του αρχείου στη ρίζα του site.
     resolves:
       - "Llms.txt not found"
     minutes: 10
@@ -102,4 +92,4 @@ fixes:
     reaudit: false
     confidence: hypothesis
     source: "TODO"
-    notes: "Προαιρετικό· δεν είναι ranking factor της Google. Υποψήφιο για εκτός scope."
+    notes: Προαιρετικό, δεν επηρεάζει το ranking στη Google. Μάλλον εκτός scope.
