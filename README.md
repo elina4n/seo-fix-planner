@@ -13,10 +13,11 @@
 
 ## Εγκατάσταση
 
+Στο τερματικό Git Bash του VS Code:
+
 ```
-python -m venv .venv
-.venv\Scripts\activate        (Windows)
-source .venv/bin/activate     (macOS)
+py -m venv .venv
+source .venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
