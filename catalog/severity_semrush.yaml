@@ -1,6 +1,6 @@
 # Η σοβαρότητα κάθε προβλήματος όπως τη δείχνει το Semrush (error, warning, notice).
 # Τα ονόματα είναι ακριβώς όπως στο export.
-# TODO: να ελεγχθεί στο Semrush > Site Audit > Issues.
+# Ελέγχθηκε στο Semrush > Site Audit > Issues στις 9/11/2026.
 
 "4xx errors": error
 "Broken internal links": error
