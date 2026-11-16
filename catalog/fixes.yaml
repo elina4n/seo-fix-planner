@@ -5,6 +5,7 @@
 # depends_on  διορθώσεις που πρέπει να γίνουν πριν
 # reaudit     true αν μετά χρειάζεται νέο crawl
 # confidence  hypothesis όσο δεν έχει δοκιμαστεί, verified μετά
+# check       πώς φαίνεται στο ίδιο το site ότι λύθηκε (το ελέγχει το checks.py)
 #
 # Η πρώτη εκδοχή καλύπτει μόνο τα προβλήματα του audit της 4/10/2026.
 
@@ -24,6 +25,11 @@ fixes:
     depends_on: []
     reaudit: true
     confidence: hypothesis
+    check:
+      type: status
+      expect: 200
+      paths_from_issue: "4xx errors"
+      paths: ["/σχετικα/", "/en/home/"]
     source: "TODO"
     notes: >
       Οι εσωτερικές σελίδες βγάζουν 404 από τον Apache, δηλαδή δεν φτάνουν στο WordPress.
@@ -40,6 +46,11 @@ fixes:
     depends_on: []
     reaudit: false
     confidence: hypothesis
+    check:
+      type: assets_header
+      page: /
+      header: Cache-Control
+      same_host_only: true
     source: "TODO"
 
   - id: F03_hsts
@@ -52,6 +63,10 @@ fixes:
     depends_on: []
     reaudit: false
     confidence: hypothesis
+    check:
+      type: header
+      path: /
+      header: Strict-Transport-Security
     source: "TODO"
     notes: Μόνο αν όλο το site και τα subdomains δουλεύουν με HTTPS.
 
@@ -65,6 +80,9 @@ fixes:
     depends_on: []
     reaudit: false
     confidence: hypothesis
+    check:
+      type: meta_description
+      path: /
     source: "TODO"
 
   - id: F05_home_content
@@ -78,6 +96,11 @@ fixes:
     depends_on: []
     reaudit: false
     confidence: hypothesis
+    check:
+      type: content
+      path: /
+      min_words: 200
+      min_text_ratio: 0.10
     source: "TODO"
     notes: Είναι θέμα περιεχομένου. Να δω αν το κρατάω στο scope.
 
@@ -91,5 +114,9 @@ fixes:
     depends_on: []
     reaudit: false
     confidence: hypothesis
+    check:
+      type: status
+      expect: 200
+      paths: ["/llms.txt"]
     source: "TODO"
     notes: Προαιρετικό, δεν επηρεάζει το ranking στη Google. Μάλλον εκτός scope.
