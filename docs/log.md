@@ -49,3 +49,14 @@ docs/verification/.
 - 35 ενημερώσεις εκκρεμούν. Δεν εφαρμόζονται μέχρι το τέλος των δοκιμών
   (απόφαση 10).
 - Χρονόμετρο με αυτόματο έλεγχο λύσης (checks.py, timer_app.py), τεκμηρίωση στο docs/timer.md.
+
+## 17/11/2026
+- Πρώτη εκτέλεση του checks.py στο κανονικό site. Αποτέλεσμα:
+```
+--  F01_routing                  0/19  όχι ακόμα: /σχετικα/ (404), /en/home/ (404), /2026/01/ (404) και άλλα 16
+--  F02_browser_caching          0/38  λείπει από 38: wpo-minify-header-contact-form-71777819143.min.css, wpo-minify-header-widgetopts-styles1777819162.min.css, wpo-minify-header-woocommerce-layout1777819165.min.css
+--  F03_hsts                     0/1  λείπει το Strict-Transport-Security
+--  F04_home_meta_description    0/1  δεν υπάρχει
+--  F05_home_content             1/2  288 λέξεις, αναλογία 2.2%
+--  F06_llms_txt                 0/1  όχι ακόμα: /llms.txt (404)
+```
